@@ -1,11 +1,11 @@
 {
   "config": {
-    "brand": "CAREER ACADEMY",
+    "brand": "CIVILWALLAH",
     "heading": "Premier Coaching for Competitive & Entrance Exams",
     "headingFont": "'Montserrat', sans-serif",
     "bodyFont": "'Montserrat', sans-serif",
     "bodyWeight": "300",
-    "color": "#F54927"
+    "color": "#f54927"
   },
   "courses": [
     {
