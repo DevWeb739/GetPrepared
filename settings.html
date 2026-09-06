@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Academy Control Panel</title>
+  <title>Admin Portal // Career Academy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
       --font-body: 'Montserrat', sans-serif;
       --body-weight: 300;
       --bg: #070913;
-      --surface: rgba(14, 18, 36, 0.85);
+      --surface: rgba(14, 18, 36, 0.75);
       --border: rgba(245, 73, 39, 0.25);
       --text: #e2e8f0;
       --text-muted: #94a3b8;
@@ -31,10 +31,8 @@
       font-family: var(--font-body);
       font-weight: var(--body-weight);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1.5rem;
+      overflow-x: hidden;
+      line-height: 1.6;
     }
 
     h1, h2, h3, .heading-font {
@@ -42,25 +40,44 @@
       font-weight: 700;
     }
 
-    .container {
-      width: 100%;
-      max-width: 750px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2.5rem;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      margin-top: 1.5rem;
+    /* Ambient Canvas Matching index.html */
+    .bg-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(var(--primary-rgb), 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(var(--primary-rgb), 0.08) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 45px 45px, 45px 45px;
     }
 
-    .top-bar {
-      width: 100%;
-      max-width: 750px;
+    /* Header Matching index.html */
+    header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1.5rem 8%;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
+
+    .brand {
+      font-size: 1.4rem;
+      letter-spacing: 1.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--primary); text-shadow: var(--glow); }
 
     .btn {
       font-family: var(--font-heading);
@@ -76,15 +93,88 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      transition: all 0.3s;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    .btn:hover { background: var(--primary); color: #fff; box-shadow: var(--glow); }
-    .btn-solid { background: var(--primary); color: #fff; }
-    .btn-danger { border-color: #ff3366; color: #ff3366; font-size: 0.75rem; padding: 0.4rem 0.8rem; }
-    .btn-danger:hover { background: #ff3366; color: #fff; box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
+    .btn:hover {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
+    }
+
+    .btn-solid {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .btn-danger {
+      border-color: #ff3366;
+      color: #ff3366;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+    }
+
+    .btn-danger:hover {
+      background: #ff3366;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    }
+
+    .main-wrapper {
+      padding: 3rem 8% 5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card-panel {
+      width: 100%;
+      max-width: 800px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.15);
+    }
+
+    /* Tab navigation bar */
+    .tab-nav {
+      display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .tab-link {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .tab-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-link.active {
+      color: #fff;
+      background: rgba(var(--primary-rgb), 0.2);
+      border-bottom: 2px solid var(--primary);
+    }
 
     .form-group { margin-bottom: 1.4rem; }
+
     .form-group label {
       display: block;
       font-size: 0.8rem;
@@ -107,31 +197,19 @@
     }
 
     .form-select { background-color: #0d1222; cursor: pointer; }
-    .form-textarea { min-height: 90px; resize: vertical; }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary); }
+    .form-textarea { min-height: 95px; resize: vertical; }
 
-    .error-msg { color: #ff3366; font-size: 0.85rem; margin-top: 0.6rem; display: none; }
-
-    .tabs {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 0.5rem;
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
     }
 
-    .tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 0.9rem;
-      cursor: pointer;
-      padding: 0.5rem 0;
+    .error-msg {
+      color: #ff3366;
+      font-size: 0.85rem;
+      margin-top: 0.6rem;
+      display: none;
     }
-
-    .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
 
     .course-item {
       display: flex;
@@ -145,11 +223,11 @@
     }
 
     .course-item-thumb {
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
       border-radius: 4px;
       object-fit: cover;
-      margin-right: 12px;
+      margin-right: 14px;
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
@@ -164,105 +242,124 @@
 </head>
 <body>
 
-  <div class="top-bar">
-    <a href="index.html" class="btn">← Return to Site</a>
-    <span class="heading-font" style="color: var(--primary); font-size: 0.9rem;">ADMIN CONSOLE</span>
-  </div>
+  <div class="bg-canvas"></div>
 
-  <div class="container" id="loginContainer" style="max-width: 450px;">
-    <h2 class="heading-font" style="margin-bottom: 1.5rem; color: #fff;">Authorization Required</h2>
-    <div class="form-group">
-      <label>Admin Username</label>
-      <input type="text" id="adminUser" class="form-input" placeholder="admin" autocomplete="off" />
+  <!-- Identical Header -->
+  <header>
+    <a href="index.html" class="brand heading-font">
+      <span id="siteLogo">❖</span> <span id="brandName">CAREER ACADEMY</span>
+    </a>
+    <div>
+      <a href="index.html" class="btn">← Back to Site</a>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="adminPass" class="form-input" placeholder="•••••" />
-    </div>
-    <div class="error-msg" id="loginError">Access denied. Invalid credentials.</div>
-    <button class="btn btn-solid" style="width: 100%; margin-top: 1rem;" onclick="attemptLogin()">Unlock Portal</button>
-  </div>
+  </header>
 
-  <div class="container" id="adminDashboard" style="display: none;">
-    <div class="tabs">
-      <button class="tab-btn active" id="tabSiteBtn" onclick="switchSection('site')">Global Design & Brand</button>
-      <button class="tab-btn" id="tabCoursesBtn" onclick="switchSection('courses')">Course Management</button>
-    </div>
+  <div class="main-wrapper">
 
-    <div id="siteSection">
+    <!-- Screen 1: Login -->
+    <div class="card-panel" id="loginContainer" style="max-width: 450px;">
+      <h2 class="heading-font" style="margin-bottom: 1.5rem; color: #fff;">Authorization Required</h2>
       <div class="form-group">
-        <label>Website Name / Academy Brand</label>
-        <input type="text" id="setBrandName" class="form-input" oninput="syncState()" />
+        <label>Admin Username</label>
+        <input type="text" id="adminUser" class="form-input" placeholder="admin" autocomplete="off" />
       </div>
       <div class="form-group">
-        <label>Website Main Heading</label>
-        <input type="text" id="setHeroHeading" class="form-input" oninput="syncState()" />
+        <label>Password</label>
+        <input type="password" id="adminPass" class="form-input" placeholder="•••••" />
       </div>
-      <div class="form-group">
-        <label>Website Heading Font Style</label>
-        <select id="setHeadingFont" class="form-select" onchange="syncState()">
-          <option value="'Montserrat', sans-serif" selected>Montserrat (Default)</option>
-          <option value="'Orbitron', sans-serif">Cyberpunk / Futuristic (Orbitron)</option>
-          <option value="'Space Grotesk', sans-serif">Modern Tech (Space Grotesk)</option>
-          <option value="'Syne', sans-serif">Ultra-Wide Bold (Syne)</option>
-          <option value="'Inter', sans-serif">Minimalist Sans (Inter)</option>
-          <option value="'Fira Code', monospace">Developer Monospace (Fira Code)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Website Body Text Font Style</label>
-        <select id="setBodyFont" class="form-select" onchange="syncState()">
-          <option value="'Montserrat', sans-serif" selected>Montserrat Light (Default)</option>
-          <option value="'Space Grotesk', sans-serif">Tech Modern (Space Grotesk)</option>
-          <option value="'Inter', sans-serif">Clean Neutral (Inter)</option>
-          <option value="'Fira Code', monospace">Monospace Code (Fira Code)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Global Accent & Glow Color</label>
-        <input type="color" id="setColor" class="form-input" value="#F54927" style="height: 48px; padding: 4px; cursor: pointer;" oninput="syncState()" />
-      </div>
+      <div class="error-msg" id="loginError">Access denied. Invalid credentials.</div>
+      <button class="btn btn-solid" style="width: 100%; margin-top: 1rem;" onclick="attemptLogin()">Unlock Portal</button>
     </div>
 
-    <div id="coursesSection" style="display: none;">
-      <h3 class="heading-font" style="font-size: 1.1rem; margin-bottom: 1.2rem; color: var(--primary);">Add New Course</h3>
+    <!-- Screen 2: Admin Dashboard -->
+    <div class="card-panel" id="adminDashboard" style="display: none;">
       
-      <div class="form-group">
-        <label>Course Name (Top)</label>
-        <input type="text" id="courseName" class="form-input" placeholder="e.g. WBP Sub-Inspector Special" />
+      <!-- Clear Tab Switcher -->
+      <div class="tab-nav">
+        <button class="tab-link active" id="tabSiteBtn" onclick="switchSection('site')">⚙ Global Design & Brand</button>
+        <button class="tab-link" id="tabCoursesBtn" onclick="switchSection('courses')">📚 Course Management</button>
       </div>
 
-      <div class="form-group">
-        <label>Course Thumbnail Image URL</label>
-        <input type="url" id="courseImg" class="form-input" placeholder="https://images.unsplash.com/photo-..." />
+      <!-- Tab 1: Global Site Settings -->
+      <div id="siteSection">
+        <div class="form-group">
+          <label>Website Name / Academy Brand</label>
+          <input type="text" id="setBrandName" class="form-input" oninput="syncState()" />
+        </div>
+        <div class="form-group">
+          <label>Website Main Heading</label>
+          <input type="text" id="setHeroHeading" class="form-input" oninput="syncState()" />
+        </div>
+        <div class="form-group">
+          <label>Heading Font Style</label>
+          <select id="setHeadingFont" class="form-select" onchange="syncState()">
+            <option value="'Montserrat', sans-serif" selected>Montserrat (Default)</option>
+            <option value="'Orbitron', sans-serif">Cyberpunk / Futuristic (Orbitron)</option>
+            <option value="'Space Grotesk', sans-serif">Modern Tech (Space Grotesk)</option>
+            <option value="'Syne', sans-serif">Ultra-Wide Bold (Syne)</option>
+            <option value="'Inter', sans-serif">Minimalist Sans (Inter)</option>
+            <option value="'Fira Code', monospace">Developer Monospace (Fira Code)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Body Font Style</label>
+          <select id="setBodyFont" class="form-select" onchange="syncState()">
+            <option value="'Montserrat', sans-serif" selected>Montserrat Light (Default)</option>
+            <option value="'Space Grotesk', sans-serif">Tech Modern (Space Grotesk)</option>
+            <option value="'Inter', sans-serif">Clean Neutral (Inter)</option>
+            <option value="'Fira Code', monospace">Monospace Code (Fira Code)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Global Accent & Glow Color</label>
+          <input type="color" id="setColor" class="form-input" value="#F54927" style="height: 48px; padding: 4px; cursor: pointer;" oninput="syncState()" />
+        </div>
       </div>
 
-      <div class="form-group">
-        <label>Course Description (Middle)</label>
-        <textarea id="courseDesc" class="form-textarea" placeholder="Outline syllabus, batch timings, guidance..."></textarea>
+      <!-- Tab 2: Course Management Section -->
+      <div id="coursesSection" style="display: none;">
+        <h3 class="heading-font" style="font-size: 1.15rem; margin-bottom: 1.2rem; color: var(--primary);">Add New Course</h3>
+        
+        <div class="form-group">
+          <label>Course Name (Top)</label>
+          <input type="text" id="courseName" class="form-input" placeholder="e.g. WBP Sub-Inspector Special" />
+        </div>
+
+        <div class="form-group">
+          <label>Course Thumbnail Image URL</label>
+          <input type="url" id="courseImg" class="form-input" placeholder="https://images.unsplash.com/..." />
+        </div>
+
+        <div class="form-group">
+          <label>Course Description (Middle)</label>
+          <textarea id="courseDesc" class="form-textarea" placeholder="Outline syllabus, batch timings, guidance..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Course Price / Action (Bottom)</label>
+          <input type="text" id="coursePrice" class="form-input" placeholder="e.g. Enquire Now or ₹1499" />
+        </div>
+
+        <button class="btn btn-solid" style="width: 100%; margin-bottom: 2rem;" onclick="addCourse()">+ Add Course</button>
+
+        <h3 class="heading-font" style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--text-muted);">Current Active Courses</h3>
+        <div id="coursesList"></div>
       </div>
 
-      <div class="form-group">
-        <label>Course Price / Action (Bottom)</label>
-        <input type="text" id="coursePrice" class="form-input" placeholder="e.g. Enquire Now or ₹1499" />
+      <!-- Export Action Box -->
+      <div class="export-box">
+        <h3 class="heading-font" style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.6rem;">Save Everywhere (data.json)</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Click <strong>Download data.json</strong> or <strong>Copy JSON Code</strong>. Replace your repository's <code>data.json</code> file to persist these changes permanently on all devices.
+        </p>
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+          <button class="btn btn-solid" onclick="downloadJSON()">⬇ Download data.json</button>
+          <button class="btn" onclick="copyJSON()">📋 Copy JSON Code</button>
+        </div>
       </div>
 
-      <button class="btn btn-solid" style="width: 100%; margin-bottom: 2rem;" onclick="addCourse()">+ Add Course</button>
-
-      <h3 class="heading-font" style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-muted);">Current Active Courses</h3>
-      <div id="coursesList"></div>
     </div>
 
-    <div class="export-box">
-      <h3 class="heading-font" style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.6rem;">Save Everywhere (data.json)</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-        Click <strong>Download data.json</strong> or <strong>Copy JSON Code</strong>. Replace the <code>data.json</code> file in your repository to update all changes across every device.
-      </p>
-      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-        <button class="btn btn-solid" onclick="downloadJSON()">⬇ Download data.json</button>
-        <button class="btn" onclick="copyJSON()">📋 Copy JSON Code</button>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -285,6 +382,13 @@
       return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
     }
 
+    function applyThemeColors(color) {
+      document.documentElement.style.setProperty('--primary', color);
+      document.documentElement.style.setProperty('--primary-rgb', hexToRgb(color));
+      document.documentElement.style.setProperty('--border', `rgba(${hexToRgb(color)}, 0.25)`);
+    }
+
+    // Attempt login with default admin / 12345
     function attemptLogin() {
       const user = document.getElementById('adminUser').value.trim();
       const pass = document.getElementById('adminPass').value.trim();
@@ -297,11 +401,13 @@
       }
     }
 
+    // Switch between site styling and course settings
     function switchSection(sec) {
-      document.getElementById('siteSection').style.display = (sec === 'site') ? 'block' : 'none';
-      document.getElementById('coursesSection').style.display = (sec === 'courses') ? 'block' : 'none';
-      document.getElementById('tabSiteBtn').classList.toggle('active', sec === 'site');
-      document.getElementById('tabCoursesBtn').classList.toggle('active', sec === 'courses');
+      const isSite = sec === 'site';
+      document.getElementById('siteSection').style.display = isSite ? 'block' : 'none';
+      document.getElementById('coursesSection').style.display = isSite ? 'none' : 'block';
+      document.getElementById('tabSiteBtn').classList.toggle('active', isSite);
+      document.getElementById('tabCoursesBtn').classList.toggle('active', !isSite);
     }
 
     async function loadInitialData() {
@@ -313,18 +419,14 @@
       }
 
       const cfg = siteState.config || {};
+      document.getElementById('brandName').textContent = cfg.brand || 'CAREER ACADEMY';
       document.getElementById('setBrandName').value = cfg.brand || 'CAREER ACADEMY';
       document.getElementById('setHeroHeading').value = cfg.heading || 'Premier Coaching for Competitive & Entrance Exams';
       document.getElementById('setHeadingFont').value = cfg.headingFont || "'Montserrat', sans-serif";
       document.getElementById('setBodyFont').value = cfg.bodyFont || "'Montserrat', sans-serif";
       document.getElementById('setColor').value = cfg.color || '#F54927';
 
-      // Update styling dynamically inside settings console
-      if (cfg.color) {
-        document.documentElement.style.setProperty('--primary', cfg.color);
-        document.documentElement.style.setProperty('--primary-rgb', hexToRgb(cfg.color));
-      }
-
+      applyThemeColors(cfg.color || '#F54927');
       renderAdminCourseList();
     }
 
@@ -339,8 +441,8 @@
         color: selectedColor
       };
       
-      document.documentElement.style.setProperty('--primary', selectedColor);
-      document.documentElement.style.setProperty('--primary-rgb', hexToRgb(selectedColor));
+      document.getElementById('brandName').textContent = siteState.config.brand;
+      applyThemeColors(selectedColor);
       localStorage.setItem('siteExportData', JSON.stringify(siteState));
     }
 
@@ -417,7 +519,7 @@
       a.href = URL.createObjectURL(blob);
       a.download = 'data.json';
       a.click();
-      alert('Downloaded data.json! Replace your local/GitHub data.json with this file.');
+      alert('Downloaded data.json! Replace data.json in your repo/folder.');
     }
 
     function copyJSON() {
@@ -425,6 +527,20 @@
       navigator.clipboard.writeText(JSON.stringify(siteState, null, 2));
       alert('JSON copied to clipboard! Paste it directly into your data.json file.');
     }
+
+    // Pre-apply default theme from data.json on immediate load
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('data.json?t=' + Date.now());
+        if (res.ok) {
+          const initData = await res.json();
+          if (initData.config) {
+            if (initData.config.brand) document.getElementById('brandName').textContent = initData.config.brand;
+            if (initData.config.color) applyThemeColors(initData.config.color);
+          }
+        }
+      } catch (e) {}
+    });
   </script>
 </body>
 </html>
