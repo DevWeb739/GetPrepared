@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Management Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #00f0ff;
+      --primary-rgb: 0, 240, 255;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --font-weight-body: 300;
+      --font-weight-heading: 800;
+      --bg: #080a14;
+      --surface: rgba(15, 20, 38, 0.75);
+      --border: rgba(0, 240, 255, 0.22);
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --glow: 0 0 25px rgba(var(--primary-rgb), 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: var(--font-weight-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    h1, h2, h3, .heading-font {
+      font-family: var(--font-heading);
+      font-weight: var(--font-weight-heading);
+      letter-spacing: -0.01em;
+    }
+
+    .bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(var(--primary-rgb), 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(112, 0, 255, 0.15) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 45px 45px, 45px 45px;
+    }
+
+    .top-bar {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.65rem 1.4rem;
+      border: 1px solid var(--primary);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--primary);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+      color: #000;
+      box-shadow: var(--glow);
+    }
+
+    .btn-solid {
+      background: var(--primary);
+      color: #000;
+      font-weight: 800;
+    }
+
+    .btn-secondary {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text-muted);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    .btn-action {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.78rem;
+      border-radius: 5px;
+    }
+
+    .btn-danger {
+      border-color: #ff3366;
+      color: #ff3366;
+    }
+
+    .btn-danger:hover {
+      background: #ff3366;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+    }
+
+    .form-group {
+      margin-bottom: 1.4rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      color: var(--text-muted);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    .form-textarea {
+      min-height: 95px;
+      resize: vertical;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .error-msg {
+      color: #ff3366;
+      font-size: 0.85rem;
+      margin-top: 0.6rem;
+      display: none;
+    }
+
+    .course-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 1rem;
+    }
+
+    .course-details {
+      flex-grow: 1;
+    }
+
+    .course-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .whatsapp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(37, 211, 102, 0.15);
+      color: #25d366;
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-canvas"></div>
+
+  <div class="top-bar">
+    <a href="index.html" class="btn">← Back to Site</a>
+    <span class="heading-font" style="color: var(--primary); font-size: 0.85rem; font-weight: 800;">COURSE DASHBOARD</span>
+  </div>
+
+  <div class="container" id="loginContainer" style="max-width: 450px;">
+    <h2 class="heading-font" style="margin-bottom: 1.5rem; color: #fff;">Admin Authorization</h2>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="adminUser" class="form-input" placeholder="admin" autocomplete="off" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="adminPass" class="form-input" placeholder="•••••" />
+    </div>
+    <div class="error-msg" id="loginError">Access denied. Invalid credentials.</div>
+    <button class="btn btn-solid" style="width: 100%; margin-top: 1rem;" onclick="attemptLogin()">Unlock Portal</button>
+  </div>
+
+  <div class="container" id="courseDashboard" style="display: none;">
+    <div class="whatsapp-badge">
+      <span>●</span> Direct WhatsApp Checkout Connected
+    </div>
+
+    <div class="form-group" style="padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+      <label>Enrollment WhatsApp Number (With Country Code)</label>
+      <div style="display: flex; gap: 0.8rem;">
+        <input type="text" id="whatsappInput" class="form-input" placeholder="e.g. +919876543210" />
+        <button class="btn btn-solid" onclick="saveWhatsAppNumber()">Save</button>
+      </div>
+      <small style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 0.4rem;">Incoming student queries will be routed directly to this number.</small>
+    </div>
+
+    <h3 class="heading-font" id="formHeader" style="font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 1.2rem; color: var(--primary);">Add New Course</h3>
+    <input type="hidden" id="editCourseId" value="" />
+
+    <div class="form-group">
+      <label>Course Name (Top)</label>
+      <input type="text" id="courseName" class="form-input" placeholder="e.g. Core System Architecture" />
+    </div>
+
+    <div class="form-group">
+      <label>Course Description (Middle)</label>
+      <textarea id="courseDesc" class="form-textarea" placeholder="Outline syllabus, key topics, lectures, and prerequisites..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Course Price (Bottom)</label>
+      <input type="text" id="coursePrice" class="form-input" placeholder="e.g. $199 or ₹4,999" />
+    </div>
+
+    <div style="display: flex; gap: 0.8rem; margin-bottom: 2.5rem;">
+      <button class="btn btn-solid" id="saveCourseBtn" style="flex-grow: 1;" onclick="saveCourse()">+ Add Course to Site</button>
+      <button class="btn btn-secondary" id="cancelEditBtn" style="display: none;" onclick="cancelEdit()">Cancel Edit</button>
+    </div>
+
+    <h3 class="heading-font" style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--text-muted);">Active Courses & Order</h3>
+    <div id="coursesList"></div>
+  </div>
+
+  <script>
+    const defaultCourses = [
+      {
+        id: 1,
+        title: "Modern Core Engineering",
+        desc: "Foundational programming structures, control flows, and clean procedural architecture.",
+        price: "$199"
+      },
+      {
+        id: 2,
+        title: "Interactive Web Architectures",
+        desc: "Mastering DOM operations, asynchronous systems, responsive design, and dynamic rendering.",
+        price: "$249"
+      }
+    ];
+
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      const num = parseInt(hex, 16);
+      return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
+    }
+
+    function syncTheme() {
+      let headingFont = "'Montserrat', sans-serif";
+      let bodyFont = "'Montserrat', sans-serif";
+      let headingWeight = "800";
+      let bodyWeight = "300";
+
+      const savedConfig = localStorage.getItem('siteConfig');
+      if (savedConfig) {
+        try {
+          const config = JSON.parse(savedConfig);
+          if (config.color) {
+            document.documentElement.style.setProperty('--primary', config.color);
+            document.documentElement.style.setProperty('--primary-rgb', hexToRgb(config.color));
+          }
+          if (config.headingFont) {
+            headingFont = config.headingFont;
+            headingWeight = headingFont.includes('Montserrat') ? "800" : "700";
+          }
+          if (config.bodyFont) {
+            bodyFont = config.bodyFont;
+            bodyWeight = bodyFont.includes('Montserrat') ? "300" : "400";
+          }
+        } catch (e) {
+          console.error("Theme sync error:", e);
+        }
+      }
+
+      document.documentElement.style.setProperty('--font-heading', headingFont);
+      document.documentElement.style.setProperty('--font-body', bodyFont);
+      document.documentElement.style.setProperty('--font-weight-heading', headingWeight);
+      document.documentElement.style.setProperty('--font-weight-body', bodyWeight);
+    }
+
+    function attemptLogin() {
+      const user = document.getElementById('adminUser').value.trim();
+      const pass = document.getElementById('adminPass').value.trim();
+      const errorMsg = document.getElementById('loginError');
+
+      if (user === 'admin' && pass === '12345') {
+        document.getElementById('loginContainer').style.display = 'none';
+        document.getElementById('courseDashboard').style.display = 'block';
+        loadDashboard();
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    function loadDashboard() {
+      const savedWhatsApp = localStorage.getItem('whatsappNumber') || '+919876543210';
+      document.getElementById('whatsappInput').value = savedWhatsApp;
+      renderCourseList();
+    }
+
+    function saveWhatsAppNumber() {
+      const num = document.getElementById('whatsappInput').value.trim();
+      if (!num) {
+        alert('Please provide a valid phone number with country code.');
+        return;
+      }
+      localStorage.setItem('whatsappNumber', num);
+      alert('WhatsApp enrollment number saved!');
+    }
+
+    function getStoredCourses() {
+      const data = localStorage.getItem('siteCourses');
+      return data ? JSON.parse(data) : defaultCourses;
+    }
+
+    function renderCourseList() {
+      const courses = getStoredCourses();
+      const list = document.getElementById('coursesList');
+      list.innerHTML = '';
+
+      if (courses.length === 0) {
+        list.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No courses currently created.</p>';
+        return;
+      }
+
+      courses.forEach((c, index) => {
+        const item = document.createElement('div');
+        item.className = 'course-item';
+        item.innerHTML = `
+          <div class="course-details">
+            <strong style="color: #fff; display: block; font-size: 1rem;">${index + 1}. ${c.title}</strong>
+            <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700;">${c.price}</span>
+          </div>
+          <div class="course-controls">
+            <button class="btn btn-secondary btn-action" title="Move Up" onclick="reorderCourse(${index}, -1)" ${index === 0 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>↑</button>
+            <button class="btn btn-secondary btn-action" title="Move Down" onclick="reorderCourse(${index}, 1)" ${index === courses.length - 1 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>↓</button>
+            <button class="btn btn-secondary btn-action" onclick="startEditCourse(${c.id})">Edit</button>
+            <button class="btn btn-danger btn-action" onclick="deleteCourse(${c.id})">Delete</button>
+          </div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function saveCourse() {
+      const editId = document.getElementById('editCourseId').value;
+      const title = document.getElementById('courseName').value.trim();
+      const desc = document.getElementById('courseDesc').value.trim();
+      const price = document.getElementById('coursePrice').value.trim();
+
+      if (!title || !desc || !price) {
+        alert('Please fill out Course Name, Description, and Price.');
+        return;
+      }
+
+      let courses = getStoredCourses();
+
+      if (editId) {
+        courses = courses.map(c => c.id == editId ? { ...c, title, desc, price } : c);
+        alert('Course updated successfully!');
+      } else {
+        courses.push({
+          id: Date.now(),
+          title,
+          desc,
+          price
+        });
+        alert('Course added successfully!');
+      }
+
+      localStorage.setItem('siteCourses', JSON.stringify(courses));
+      resetForm();
+      renderCourseList();
+    }
+
+    function startEditCourse(id) {
+      const courses = getStoredCourses();
+      const course = courses.find(c => c.id === id);
+      if (!course) return;
+
+      document.getElementById('editCourseId').value = course.id;
+      document.getElementById('courseName').value = course.title;
+      document.getElementById('courseDesc').value = course.desc;
+      document.getElementById('coursePrice').value = course.price;
+
+      document.getElementById('formHeader').textContent = `Editing: ${course.title}`;
+      document.getElementById('saveCourseBtn').textContent = 'Save Changes';
+      document.getElementById('cancelEditBtn').style.display = 'inline-flex';
+
+      window.scrollTo({ top: 180, behavior: 'smooth' });
+    }
+
+    function cancelEdit() {
+      resetForm();
+    }
+
+    function resetForm() {
+      document.getElementById('editCourseId').value = '';
+      document.getElementById('courseName').value = '';
+      document.getElementById('courseDesc').value = '';
+      document.getElementById('coursePrice').value = '';
+      document.getElementById('formHeader').textContent = 'Add New Course';
+      document.getElementById('saveCourseBtn').textContent = '+ Add Course to Site';
+      document.getElementById('cancelEditBtn').style.display = 'none';
+    }
+
+    function reorderCourse(index, offset) {
+      const courses = getStoredCourses();
+      const targetIndex = index + offset;
+
+      if (targetIndex < 0 || targetIndex >= courses.length) return;
+
+      const temp = courses[index];
+      courses[index] = courses[targetIndex];
+      courses[targetIndex] = temp;
+
+      localStorage.setItem('siteCourses', JSON.stringify(courses));
+      renderCourseList();
+    }
+
+    function deleteCourse(id) {
+      if (!confirm('Are you sure you want to delete this course?')) return;
+      let courses = getStoredCourses();
+      courses = courses.filter(c => c.id !== id);
+      localStorage.setItem('siteCourses', JSON.stringify(courses));
+      renderCourseList();
+    }
+
+    window.addEventListener('DOMContentLoaded', syncTheme);
+  </script>
+</body>
+</html>
