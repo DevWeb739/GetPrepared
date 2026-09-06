@@ -179,6 +179,52 @@
       border-color: var(--primary);
     }
 
+    /* Thumbnail upload preview styles */
+    .thumbnail-box {
+      border: 1px dashed rgba(255, 255, 255, 0.25);
+      border-radius: 8px;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .thumb-preview-wrap {
+      width: 100%;
+      height: 180px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      background: #04060c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thumb-preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .thumb-empty-state {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    .file-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .file-input-hidden {
+      display: none;
+    }
+
     .error-msg {
       color: #ff3366;
       font-size: 0.85rem;
@@ -191,15 +237,28 @@
       justify-content: space-between;
       align-items: center;
       background: rgba(255, 255, 255, 0.03);
-      padding: 1rem 1.2rem;
+      padding: 0.9rem 1.2rem;
       border-radius: 8px;
       margin-bottom: 0.8rem;
       border: 1px solid rgba(255, 255, 255, 0.08);
       gap: 1rem;
     }
 
-    .course-details {
+    .course-left-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       flex-grow: 1;
+    }
+
+    .course-mini-thumb {
+      width: 60px;
+      height: 45px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: #11162b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
     }
 
     .course-controls {
@@ -233,6 +292,7 @@
     <span class="heading-font" style="color: var(--primary); font-size: 0.85rem; font-weight: 800;">COURSE DASHBOARD</span>
   </div>
 
+  <!-- Login Gate -->
   <div class="container" id="loginContainer" style="max-width: 450px;">
     <h2 class="heading-font" style="margin-bottom: 1.5rem; color: #fff;">Admin Authorization</h2>
     <div class="form-group">
@@ -247,11 +307,13 @@
     <button class="btn btn-solid" style="width: 100%; margin-top: 1rem;" onclick="attemptLogin()">Unlock Portal</button>
   </div>
 
+  <!-- Course Management Dashboard -->
   <div class="container" id="courseDashboard" style="display: none;">
     <div class="whatsapp-badge">
       <span>●</span> Direct WhatsApp Checkout Connected
     </div>
 
+    <!-- WhatsApp Phone Setup -->
     <div class="form-group" style="padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
       <label>Enrollment WhatsApp Number (With Country Code)</label>
       <div style="display: flex; gap: 0.8rem;">
@@ -261,21 +323,42 @@
       <small style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 0.4rem;">Incoming student queries will be routed directly to this number.</small>
     </div>
 
+    <!-- Course Form (Add / Edit) -->
     <h3 class="heading-font" id="formHeader" style="font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 1.2rem; color: var(--primary);">Add New Course</h3>
     <input type="hidden" id="editCourseId" value="" />
+    <input type="hidden" id="courseThumbnailData" value="" />
+
+    <!-- Thumbnail Picker -->
+    <div class="form-group">
+      <label>Course Thumbnail (Upload File or Paste Link)</label>
+      <div class="thumbnail-box">
+        <div class="thumb-preview-wrap">
+          <img id="thumbPreview" class="thumb-preview-img" alt="Thumbnail Preview" />
+          <span id="thumbEmpty" class="thumb-empty-state">No image chosen</span>
+        </div>
+        
+        <div class="file-input-wrapper">
+          <input type="file" id="fileUpload" class="file-input-hidden" accept="image/*" onchange="handleFileUpload(event)" />
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('fileUpload').click()">📁 Choose File</button>
+          <button type="button" class="btn btn-secondary btn-danger" id="removeThumbBtn" style="display: none;" onclick="clearThumbnail()">Remove Image</button>
+        </div>
+
+        <input type="text" id="thumbUrlInput" class="form-input" placeholder="Or paste image URL (https://...)" oninput="handleUrlInput()" />
+      </div>
+    </div>
 
     <div class="form-group">
-      <label>Course Name (Top)</label>
+      <label>Course Name</label>
       <input type="text" id="courseName" class="form-input" placeholder="e.g. Core System Architecture" />
     </div>
 
     <div class="form-group">
-      <label>Course Description (Middle)</label>
+      <label>Course Description</label>
       <textarea id="courseDesc" class="form-textarea" placeholder="Outline syllabus, key topics, lectures, and prerequisites..."></textarea>
     </div>
 
     <div class="form-group">
-      <label>Course Price (Bottom)</label>
+      <label>Course Price</label>
       <input type="text" id="coursePrice" class="form-input" placeholder="e.g. $199 or ₹4,999" />
     </div>
 
@@ -284,6 +367,7 @@
       <button class="btn btn-secondary" id="cancelEditBtn" style="display: none;" onclick="cancelEdit()">Cancel Edit</button>
     </div>
 
+    <!-- Active Courses with Reordering and Actions -->
     <h3 class="heading-font" style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--text-muted);">Active Courses & Order</h3>
     <div id="coursesList"></div>
   </div>
@@ -294,13 +378,15 @@
         id: 1,
         title: "Modern Core Engineering",
         desc: "Foundational programming structures, control flows, and clean procedural architecture.",
-        price: "$199"
+        price: "$199",
+        thumbnail: ""
       },
       {
         id: 2,
         title: "Interactive Web Architectures",
         desc: "Mastering DOM operations, asynchronous systems, responsive design, and dynamic rendering.",
-        price: "$249"
+        price: "$249",
+        thumbnail: ""
       }
     ];
 
@@ -334,7 +420,7 @@
             bodyWeight = bodyFont.includes('Montserrat') ? "300" : "400";
           }
         } catch (e) {
-          console.error("Theme sync error:", e);
+          console.error(e);
         }
       }
 
@@ -379,6 +465,77 @@
       return data ? JSON.parse(data) : defaultCourses;
     }
 
+    /* Thumbnail handling with file downscaling for clean localStorage storage */
+    function setThumbnailPreview(src) {
+      const img = document.getElementById('thumbPreview');
+      const empty = document.getElementById('thumbEmpty');
+      const removeBtn = document.getElementById('removeThumbBtn');
+      const hiddenInput = document.getElementById('courseThumbnailData');
+
+      if (src && src.trim() !== '') {
+        img.src = src;
+        img.style.display = 'block';
+        empty.style.display = 'none';
+        removeBtn.style.display = 'inline-flex';
+        hiddenInput.value = src;
+      } else {
+        img.removeAttribute('src');
+        img.style.display = 'none';
+        empty.style.display = 'block';
+        removeBtn.style.display = 'none';
+        hiddenInput.value = '';
+        document.getElementById('thumbUrlInput').value = '';
+        document.getElementById('fileUpload').value = '';
+      }
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const tempImg = new Image();
+        tempImg.onload = function() {
+          // Scale down image max dimension to 800px to optimize localStorage capacity
+          const canvas = document.createElement('canvas');
+          let width = tempImg.width;
+          let height = tempImg.height;
+          const maxDim = 800;
+
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(tempImg, 0, 0, width, height);
+
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          setThumbnailPreview(compressedDataUrl);
+          document.getElementById('thumbUrlInput').value = '';
+        };
+        tempImg.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleUrlInput() {
+      const url = document.getElementById('thumbUrlInput').value.trim();
+      setThumbnailPreview(url);
+    }
+
+    function clearThumbnail() {
+      setThumbnailPreview('');
+    }
+
     function renderCourseList() {
       const courses = getStoredCourses();
       const list = document.getElementById('coursesList');
@@ -392,10 +549,18 @@
       courses.forEach((c, index) => {
         const item = document.createElement('div');
         item.className = 'course-item';
+
+        const thumbHtml = c.thumbnail && c.thumbnail.trim() !== '' 
+          ? `<img src="${c.thumbnail}" class="course-mini-thumb" alt="Thumbnail" />` 
+          : `<div class="course-mini-thumb" style="display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:0.6rem;">NO IMG</div>`;
+
         item.innerHTML = `
-          <div class="course-details">
-            <strong style="color: #fff; display: block; font-size: 1rem;">${index + 1}. ${c.title}</strong>
-            <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700;">${c.price}</span>
+          <div class="course-left-info">
+            ${thumbHtml}
+            <div>
+              <strong style="color: #fff; display: block; font-size: 1rem;">${index + 1}. ${c.title}</strong>
+              <span style="color: var(--primary); font-size: 0.85rem; font-weight: 700;">${c.price}</span>
+            </div>
           </div>
           <div class="course-controls">
             <button class="btn btn-secondary btn-action" title="Move Up" onclick="reorderCourse(${index}, -1)" ${index === 0 ? 'disabled style="opacity:0.3; cursor:not-allowed;"' : ''}>↑</button>
@@ -413,6 +578,7 @@
       const title = document.getElementById('courseName').value.trim();
       const desc = document.getElementById('courseDesc').value.trim();
       const price = document.getElementById('coursePrice').value.trim();
+      const thumbnail = document.getElementById('courseThumbnailData').value;
 
       if (!title || !desc || !price) {
         alert('Please fill out Course Name, Description, and Price.');
@@ -422,19 +588,26 @@
       let courses = getStoredCourses();
 
       if (editId) {
-        courses = courses.map(c => c.id == editId ? { ...c, title, desc, price } : c);
+        courses = courses.map(c => c.id == editId ? { ...c, title, desc, price, thumbnail } : c);
         alert('Course updated successfully!');
       } else {
         courses.push({
           id: Date.now(),
           title,
           desc,
-          price
+          price,
+          thumbnail
         });
         alert('Course added successfully!');
       }
 
-      localStorage.setItem('siteCourses', JSON.stringify(courses));
+      try {
+        localStorage.setItem('siteCourses', JSON.stringify(courses));
+      } catch (err) {
+        alert('Storage error: The uploaded image might be too large for browser local storage. Try a smaller file or image URL.');
+        return;
+      }
+
       resetForm();
       renderCourseList();
     }
@@ -448,6 +621,11 @@
       document.getElementById('courseName').value = course.title;
       document.getElementById('courseDesc').value = course.desc;
       document.getElementById('coursePrice').value = course.price;
+      
+      setThumbnailPreview(course.thumbnail || '');
+      if (course.thumbnail && !course.thumbnail.startsWith('data:image')) {
+        document.getElementById('thumbUrlInput').value = course.thumbnail;
+      }
 
       document.getElementById('formHeader').textContent = `Editing: ${course.title}`;
       document.getElementById('saveCourseBtn').textContent = 'Save Changes';
@@ -465,6 +643,8 @@
       document.getElementById('courseName').value = '';
       document.getElementById('courseDesc').value = '';
       document.getElementById('coursePrice').value = '';
+      clearThumbnail();
+
       document.getElementById('formHeader').textContent = 'Add New Course';
       document.getElementById('saveCourseBtn').textContent = '+ Add Course to Site';
       document.getElementById('cancelEditBtn').style.display = 'none';

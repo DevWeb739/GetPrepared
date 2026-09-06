@@ -191,12 +191,12 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 2.2rem;
+      overflow: hidden;
       backdrop-filter: blur(16px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 320px;
+      min-height: 380px;
       transition: all 0.3s ease;
     }
 
@@ -206,16 +206,46 @@
       box-shadow: 0 12px 35px rgba(var(--primary-rgb), 0.16);
     }
 
+    .course-thumbnail {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #0d1222;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: block;
+    }
+
+    .course-thumbnail-placeholder {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(112, 0, 255, 0.1) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 2.2rem;
+      font-family: var(--font-heading);
+    }
+
+    .card-content {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
     .card-top h3 {
       font-size: 1.35rem;
       color: #fff;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     .card-body {
       color: var(--text-muted);
       font-size: 0.95rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.8rem;
       flex-grow: 1;
       white-space: pre-line;
       line-height: 1.6;
@@ -284,13 +314,15 @@
         id: 1,
         title: "Modern Core Engineering",
         desc: "Foundational programming structures, control flows, and clean procedural architecture.",
-        price: "$199"
+        price: "$199",
+        thumbnail: ""
       },
       {
         id: 2,
         title: "Interactive Web Architectures",
         desc: "Mastering DOM operations, asynchronous systems, responsive design, and dynamic rendering.",
-        price: "$249"
+        price: "$249",
+        thumbnail: ""
       }
     ];
 
@@ -302,7 +334,6 @@
     }
 
     function loadSiteSettings() {
-      // Default to Montserrat Bold (800) and Montserrat Light (300)
       let headingFont = "'Montserrat', sans-serif";
       let bodyFont = "'Montserrat', sans-serif";
       let headingWeight = "800";
@@ -354,18 +385,25 @@
         const textMsg = encodeURIComponent(`Hello! I want to enroll in the "${course.title}" course (Price: ${course.price}). Please share further information.`);
         const whatsappUrl = `https://wa.me/${cleanPhone}?text=${textMsg}`;
 
+        const thumbElement = course.thumbnail && course.thumbnail.trim() !== ''
+          ? `<img src="${course.thumbnail}" class="course-thumbnail" alt="${course.title}" />`
+          : `<div class="course-thumbnail-placeholder">❖</div>`;
+
         const card = document.createElement('div');
         card.className = 'course-card';
         card.innerHTML = `
-          <div class="card-top">
-            <h3>${course.title}</h3>
-          </div>
-          <div class="card-body">
-            <p>${course.desc}</p>
-          </div>
-          <div class="card-bottom">
-            <span class="course-price">${course.price}</span>
-            <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-solid">Enroll Now</a>
+          ${thumbElement}
+          <div class="card-content">
+            <div class="card-top">
+              <h3>${course.title}</h3>
+            </div>
+            <div class="card-body">
+              <p>${course.desc}</p>
+            </div>
+            <div class="card-bottom">
+              <span class="course-price">${course.price}</span>
+              <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-solid">Enroll Now</a>
+            </div>
           </div>
         `;
         grid.appendChild(card);
