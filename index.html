@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="siteTitleTag">Futuristic Academy</title>
+  <title id="siteTitleTag">CAREER ACADEMY</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --primary: #00f0ff;
-      --primary-rgb: 0, 240, 255;
-      --font-heading: 'Orbitron', sans-serif;
-      --font-body: 'Space Grotesk', sans-serif;
+      --primary: #F54927;
+      --primary-rgb: 245, 73, 39;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --body-weight: 300;
       --bg: #070913;
       --surface: rgba(14, 18, 36, 0.75);
-      --border: rgba(0, 240, 255, 0.25);
+      --border: rgba(245, 73, 39, 0.25);
       --text: #e2e8f0;
       --text-muted: #94a3b8;
       --glow: 0 0 25px rgba(var(--primary-rgb), 0.4);
@@ -28,12 +29,16 @@
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
+      font-weight: var(--body-weight);
       overflow-x: hidden;
       min-height: 100vh;
       line-height: 1.6;
     }
 
-    h1, h2, h3, .heading-font { font-family: var(--font-heading); }
+    h1, h2, h3, .heading-font {
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
 
     .bg-canvas {
       position: fixed;
@@ -42,7 +47,7 @@
       z-index: -1;
       background: 
         radial-gradient(circle at 15% 20%, rgba(var(--primary-rgb), 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(112, 0, 255, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(245, 73, 39, 0.08) 0%, transparent 45%),
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 45px 45px, 45px 45px;
@@ -62,8 +67,7 @@
 
     .brand {
       font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: #fff;
       display: flex;
       align-items: center;
@@ -76,6 +80,7 @@
     .btn {
       font-family: var(--font-heading);
       font-size: 0.85rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
       padding: 0.65rem 1.4rem;
@@ -91,12 +96,16 @@
 
     .btn:hover {
       background: var(--primary);
-      color: #000;
+      color: #fff;
       box-shadow: var(--glow);
       transform: translateY(-2px);
     }
 
-    .btn-solid { background: var(--primary); color: #000; font-weight: 700; }
+    .btn-solid {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
 
     .hero {
       padding: 6rem 8% 4rem;
@@ -110,18 +119,19 @@
       padding: 0.35rem 1.2rem;
       font-size: 0.8rem;
       font-family: var(--font-heading);
+      font-weight: 600;
       color: var(--primary);
       border: 1px solid var(--primary);
       background: rgba(var(--primary-rgb), 0.08);
       border-radius: 50px;
       margin-bottom: 1.5rem;
+      letter-spacing: 1px;
     }
 
     .hero h1 {
-      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
       line-height: 1.2;
       margin-bottom: 1.5rem;
-      font-weight: 800;
       color: #ffffff;
       text-shadow: 0 0 35px rgba(var(--primary-rgb), 0.3);
     }
@@ -129,7 +139,7 @@
     .hero p {
       font-size: 1.15rem;
       color: var(--text-muted);
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto 2.5rem;
     }
 
@@ -143,7 +153,7 @@
       font-size: 1.8rem;
       margin-bottom: 3rem;
       text-align: center;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -178,7 +188,7 @@
     .course-card:hover {
       transform: translateY(-6px);
       border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.18);
+      box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.2);
     }
 
     .course-thumb {
@@ -197,9 +207,22 @@
       justify-content: space-between;
     }
 
-    .card-top h3 { font-size: 1.35rem; color: #fff; margin-bottom: 1rem; }
-    .card-body { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; flex-grow: 1; white-space: pre-line; }
-    
+    .card-top h3 {
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .card-body {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+      white-space: pre-line;
+      line-height: 1.6;
+    }
+
     .card-bottom {
       display: flex;
       justify-content: space-between;
@@ -210,7 +233,7 @@
 
     .course-price {
       font-family: var(--font-heading);
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--primary);
       text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
@@ -231,7 +254,7 @@
 
   <header>
     <a href="index.html" class="brand heading-font">
-      <span id="siteLogo">❖</span> <span id="brandName">AETHER ACADEMY</span>
+      <span id="siteLogo">❖</span> <span id="brandName">CAREER ACADEMY</span>
     </a>
     <div>
       <a href="settings.html" class="btn">⚙ Settings</a>
@@ -239,9 +262,9 @@
   </header>
 
   <section class="hero">
-    <div class="badge">SYSTEM READY // ACADEMY ACTIVE</div>
-    <h1 id="heroHeadline">Master the Code of the Future</h1>
-    <p id="heroSubline">Explore structured modules, hands-on programming paradigms, and high-impact curriculum designed for the next generation.</p>
+    <div class="badge">SYSTEM READY // ADMISSIONS OPEN</div>
+    <h1 id="heroHeadline">Premier Coaching for Competitive & Entrance Exams</h1>
+    <p id="heroSubline">Structured subject breakdowns, regular practice tests, and syllabus-focused coaching designed to guide you toward qualification.</p>
     <a href="#courses" class="btn btn-solid">Explore Courses</a>
   </section>
 
@@ -251,7 +274,7 @@
   </section>
 
   <footer>
-    <p>&copy; <span id="year"></span> <span id="footerBrand">Aether Academy</span>. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> <span id="footerBrand">CAREER ACADEMY</span>. All rights reserved.</p>
   </footer>
 
   <script>
@@ -271,7 +294,7 @@
         const res = await fetch('data.json?t=' + Date.now());
         if (res.ok) data = await res.json();
       } catch (e) {
-        console.warn('Network request for data.json failed; checking browser fallback cache.', e);
+        console.warn('Network request for data.json failed; checking fallback cache.', e);
       }
 
       if (!data) {
@@ -292,9 +315,12 @@
         if (cfg.color) {
           document.documentElement.style.setProperty('--primary', cfg.color);
           document.documentElement.style.setProperty('--primary-rgb', hexToRgb(cfg.color));
+          document.documentElement.style.setProperty('--border', `rgba(${hexToRgb(cfg.color)}, 0.25)`);
         }
         if (cfg.headingFont) document.documentElement.style.setProperty('--font-heading', cfg.headingFont);
         if (cfg.bodyFont) document.documentElement.style.setProperty('--font-body', cfg.bodyFont);
+
+        // Apply light font weight
         document.body.style.fontWeight = cfg.bodyWeight || '300';
       }
 
@@ -305,7 +331,7 @@
       courses.forEach(c => {
         const card = document.createElement('div');
         card.className = 'course-card';
-        
+
         const imgHtml = c.image 
           ? `<img src="${c.image}" alt="${c.title}" class="course-thumb" onerror="this.style.display='none'" />` 
           : '';

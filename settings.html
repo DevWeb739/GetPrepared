@@ -6,17 +6,18 @@
   <title>Academy Control Panel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">  
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --primary: #00f0ff;
-      --primary-rgb: 0, 240, 255;
-      --font-heading: 'Orbitron', sans-serif;
-      --font-body: 'Space Grotesk', sans-serif;
+      --primary: #F54927;
+      --primary-rgb: 245, 73, 39;
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --body-weight: 300;
       --bg: #070913;
       --surface: rgba(14, 18, 36, 0.85);
-      --border: rgba(0, 240, 255, 0.25);
+      --border: rgba(245, 73, 39, 0.25);
       --text: #e2e8f0;
       --text-muted: #94a3b8;
       --glow: 0 0 25px rgba(var(--primary-rgb), 0.4);
@@ -28,6 +29,7 @@
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
+      font-weight: var(--body-weight);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -35,7 +37,10 @@
       padding: 3rem 1.5rem;
     }
 
-    h1, h2, h3, .heading-font { font-family: var(--font-heading); }
+    h1, h2, h3, .heading-font {
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
 
     .container {
       width: 100%;
@@ -60,6 +65,7 @@
     .btn {
       font-family: var(--font-heading);
       font-size: 0.85rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
       padding: 0.65rem 1.4rem;
@@ -73,8 +79,8 @@
       transition: all 0.3s;
     }
 
-    .btn:hover { background: var(--primary); color: #000; box-shadow: var(--glow); }
-    .btn-solid { background: var(--primary); color: #000; font-weight: 700; }
+    .btn:hover { background: var(--primary); color: #fff; box-shadow: var(--glow); }
+    .btn-solid { background: var(--primary); color: #fff; }
     .btn-danger { border-color: #ff3366; color: #ff3366; font-size: 0.75rem; padding: 0.4rem 0.8rem; }
     .btn-danger:hover { background: #ff3366; color: #fff; box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
 
@@ -83,6 +89,7 @@
       display: block;
       font-size: 0.8rem;
       font-family: var(--font-heading);
+      font-weight: 600;
       text-transform: uppercase;
       margin-bottom: 0.5rem;
       color: var(--text-muted);
@@ -118,6 +125,7 @@
       border: none;
       color: var(--text-muted);
       font-family: var(--font-heading);
+      font-weight: 600;
       font-size: 0.9rem;
       cursor: pointer;
       padding: 0.5rem 0;
@@ -193,17 +201,18 @@
       <div class="form-group">
         <label>Website Heading Font Style</label>
         <select id="setHeadingFont" class="form-select" onchange="syncState()">
+          <option value="'Montserrat', sans-serif" selected>Montserrat (Default)</option>
           <option value="'Orbitron', sans-serif">Cyberpunk / Futuristic (Orbitron)</option>
           <option value="'Space Grotesk', sans-serif">Modern Tech (Space Grotesk)</option>
           <option value="'Syne', sans-serif">Ultra-Wide Bold (Syne)</option>
           <option value="'Inter', sans-serif">Minimalist Sans (Inter)</option>
           <option value="'Fira Code', monospace">Developer Monospace (Fira Code)</option>
-          <option value="'Playfair Display', serif">Classic Editorial Serif (Playfair)</option>
         </select>
       </div>
       <div class="form-group">
         <label>Website Body Text Font Style</label>
         <select id="setBodyFont" class="form-select" onchange="syncState()">
+          <option value="'Montserrat', sans-serif" selected>Montserrat Light (Default)</option>
           <option value="'Space Grotesk', sans-serif">Tech Modern (Space Grotesk)</option>
           <option value="'Inter', sans-serif">Clean Neutral (Inter)</option>
           <option value="'Fira Code', monospace">Monospace Code (Fira Code)</option>
@@ -211,7 +220,7 @@
       </div>
       <div class="form-group">
         <label>Global Accent & Glow Color</label>
-        <input type="color" id="setColor" class="form-input" style="height: 48px; padding: 4px; cursor: pointer;" oninput="syncState()" />
+        <input type="color" id="setColor" class="form-input" value="#F54927" style="height: 48px; padding: 4px; cursor: pointer;" oninput="syncState()" />
       </div>
     </div>
 
@@ -220,22 +229,22 @@
       
       <div class="form-group">
         <label>Course Name (Top)</label>
-        <input type="text" id="courseName" class="form-input" placeholder="e.g. Modern Core Engineering" />
+        <input type="text" id="courseName" class="form-input" placeholder="e.g. WBP Sub-Inspector Special" />
       </div>
 
       <div class="form-group">
         <label>Course Thumbnail Image URL</label>
-        <input type="url" id="courseImg" class="form-input" placeholder="https://example.com/image.jpg" />
+        <input type="url" id="courseImg" class="form-input" placeholder="https://images.unsplash.com/photo-..." />
       </div>
 
       <div class="form-group">
         <label>Course Description (Middle)</label>
-        <textarea id="courseDesc" class="form-textarea" placeholder="Outline syllabus, prerequisites, and scope..."></textarea>
+        <textarea id="courseDesc" class="form-textarea" placeholder="Outline syllabus, batch timings, guidance..."></textarea>
       </div>
 
       <div class="form-group">
-        <label>Course Price (Bottom)</label>
-        <input type="text" id="coursePrice" class="form-input" placeholder="e.g. $199 or Free" />
+        <label>Course Price / Action (Bottom)</label>
+        <input type="text" id="coursePrice" class="form-input" placeholder="e.g. Enquire Now or ₹1499" />
       </div>
 
       <button class="btn btn-solid" style="width: 100%; margin-bottom: 2rem;" onclick="addCourse()">+ Add Course</button>
@@ -247,7 +256,7 @@
     <div class="export-box">
       <h3 class="heading-font" style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.6rem;">Save Everywhere (data.json)</h3>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-        Click <strong>Download data.json</strong> or <strong>Copy JSON Code</strong>. Replace your local/GitHub <code>data.json</code> file to persist changes across all devices.
+        Click <strong>Download data.json</strong> or <strong>Copy JSON Code</strong>. Replace the <code>data.json</code> file in your repository to update all changes across every device.
       </p>
       <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
         <button class="btn btn-solid" onclick="downloadJSON()">⬇ Download data.json</button>
@@ -259,14 +268,22 @@
   <script>
     let siteState = {
       config: {
-        brand: "AETHER ACADEMY",
-        heading: "Master the Code of the Future",
-        headingFont: "'Orbitron', sans-serif",
-        bodyFont: "'Space Grotesk', sans-serif",
-        color: "#00f0ff"
+        brand: "CAREER ACADEMY",
+        heading: "Premier Coaching for Competitive & Entrance Exams",
+        headingFont: "'Montserrat', sans-serif",
+        bodyFont: "'Montserrat', sans-serif",
+        bodyWeight: "300",
+        color: "#F54927"
       },
       courses: []
     };
+
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      const num = parseInt(hex, 16);
+      return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
+    }
 
     function attemptLogin() {
       const user = document.getElementById('adminUser').value.trim();
@@ -292,27 +309,38 @@
         const res = await fetch('data.json?t=' + Date.now());
         if (res.ok) siteState = await res.json();
       } catch (e) {
-        console.warn('Could not read remote data.json', e);
+        console.warn('Could not read data.json directly', e);
       }
 
       const cfg = siteState.config || {};
-      document.getElementById('setBrandName').value = cfg.brand || 'AETHER ACADEMY';
-      document.getElementById('setHeroHeading').value = cfg.heading || 'Master the Code of the Future';
-      document.getElementById('setHeadingFont').value = cfg.headingFont || "'Orbitron', sans-serif";
-      document.getElementById('setBodyFont').value = cfg.bodyFont || "'Space Grotesk', sans-serif";
-      document.getElementById('setColor').value = cfg.color || '#00f0ff';
+      document.getElementById('setBrandName').value = cfg.brand || 'CAREER ACADEMY';
+      document.getElementById('setHeroHeading').value = cfg.heading || 'Premier Coaching for Competitive & Entrance Exams';
+      document.getElementById('setHeadingFont').value = cfg.headingFont || "'Montserrat', sans-serif";
+      document.getElementById('setBodyFont').value = cfg.bodyFont || "'Montserrat', sans-serif";
+      document.getElementById('setColor').value = cfg.color || '#F54927';
+
+      // Update styling dynamically inside settings console
+      if (cfg.color) {
+        document.documentElement.style.setProperty('--primary', cfg.color);
+        document.documentElement.style.setProperty('--primary-rgb', hexToRgb(cfg.color));
+      }
 
       renderAdminCourseList();
     }
 
     function syncState() {
+      const selectedColor = document.getElementById('setColor').value;
       siteState.config = {
         brand: document.getElementById('setBrandName').value.trim(),
         heading: document.getElementById('setHeroHeading').value.trim(),
         headingFont: document.getElementById('setHeadingFont').value,
         bodyFont: document.getElementById('setBodyFont').value,
-        color: document.getElementById('setColor').value
+        bodyWeight: "300",
+        color: selectedColor
       };
+      
+      document.documentElement.style.setProperty('--primary', selectedColor);
+      document.documentElement.style.setProperty('--primary-rgb', hexToRgb(selectedColor));
       localStorage.setItem('siteExportData', JSON.stringify(siteState));
     }
 
@@ -328,7 +356,7 @@
       siteState.courses.forEach((c, idx) => {
         const item = document.createElement('div');
         item.className = 'course-item';
-        
+
         const thumb = c.image 
           ? `<img src="${c.image}" class="course-item-thumb" onerror="this.style.display='none'" />`
           : `<div class="course-item-thumb" style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);color:var(--text-muted);font-size:0.7rem;">N/A</div>`;
@@ -389,7 +417,7 @@
       a.href = URL.createObjectURL(blob);
       a.download = 'data.json';
       a.click();
-      alert('Downloaded data.json! Replace data.json in your project folder.');
+      alert('Downloaded data.json! Replace your local/GitHub data.json with this file.');
     }
 
     function copyJSON() {
