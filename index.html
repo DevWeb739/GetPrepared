@@ -6,6 +6,7 @@
   <title id="siteTitleTag">CAREER ACADEMY</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Montserrat 300 (Light), 400, 600, 700, 800 + Alternative Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600;800&family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   
   <style>
@@ -76,6 +77,12 @@
     }
 
     .brand span { color: var(--primary); text-shadow: var(--glow); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
 
     .btn {
       font-family: var(--font-heading);
@@ -256,7 +263,9 @@
     <a href="index.html" class="brand heading-font">
       <span id="siteLogo">❖</span> <span id="brandName">CAREER ACADEMY</span>
     </a>
-    <div>
+    <div class="nav-actions">
+      <!-- Restored Course Settings link -->
+      <a href="course-settings.html" class="btn">📚 Course Settings</a>
       <a href="settings.html" class="btn">⚙ Settings</a>
     </div>
   </header>
