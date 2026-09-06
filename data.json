@@ -1,0 +1,67 @@
+{
+  "config": {
+    "brand": "Civilwallah ACADEMY",
+    "heading": "Premier Coaching for Competitive & Entrance Exams",
+    "headingFont": "'Orbitron', sans-serif",
+    "bodyFont": "'Space Grotesk', sans-serif",
+    "color": "#00f0ff"
+  },
+  "courses": [
+    {
+      "id": 1,
+      "title": "WBP (West Bengal Police Exam)",
+      "image": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80",
+      "desc": "Targeted preparation for Constable and SI posts, focusing on prelims and mains syllabus, exam-oriented practice sets, and physical efficiency guidance.",
+      "price": "Enquire Now"
+    },
+    {
+      "id": 2,
+      "title": "SSC GD (General Duty)",
+      "image": "https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?auto=format&fit=crop&w=600&q=80",
+      "desc": "Comprehensive coaching for CAPF constable recruitment covering Elementary Mathematics, General Intelligence, Reasoning, and Hindi/English language skills.",
+      "price": "Enquire Now"
+    },
+    {
+      "id": 3,
+      "title": "WBPSC Miscellaneous",
+      "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=600&q=80",
+      "desc": "Deep-dive coverage of General Studies, Arithmetic, and descriptive English/Bengali papers aligned with the official WBPSC three-stage selection pattern.",
+      "price": "Enquire Now"
+    },
+    {
+      "id": 4,
+      "title": "GNM Nursing Entrance (ANM/GNM)",
+      "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80",
+      "desc": "Focused preparation for state nursing entrance tests, emphasizing Class 10/12 Life Science, Physical Science, basic arithmetic, and grammar essentials.",
+      "price": "Enquire Now"
+    },
+    {
+      "id": 5,
+      "title": "B.Sc. Nursing (JENPAS UG)",
+      "image": "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=600&q=80",
+      "desc": "Advanced foundation coaching covering 10+2 Physics, Chemistry, Biology, Basic English, and Logical Reasoning specifically mapped to nursing degree entrance exams.",
+      "price": "Enquire Now"
+    },
+    {
+      "id": 6,
+      "title": "Current Affairs for Various Exams",
+      "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=600&q=80",
+      "desc": "Daily and monthly national, international, and state-level event breakdowns with high-yield MCQs, static GK integration, and revision notes.",
+      "price": "Enquire Now"
+    },
+    {
+      "id": 7,
+      "title": "Math for Various Competitive Exams",
+      "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=600&q=80",
+      "desc": "Concept-building and shortcut-driven problem-solving covering Arithmetic, Algebra, Geometry, and Mensuration tailored for speed and accuracy.",
+      "price": "Enquire Now"
+    },
+    {
+      "id": 8,
+      "title": "General Science for Various Exams",
+      "image": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80",
+      "desc": "NCERT-based core coverage of Physics, Chemistry, and Biology fundamentals, emphasizing frequently asked conceptual questions across state and central exams.",
+      "price": "Enquire Now"
+    }
+  ]
+}

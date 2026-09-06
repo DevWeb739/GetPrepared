@@ -3,67 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Site Style Settings</title>
+  <title>Academy Control Panel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&family=Orbitron:wght@500;700;900&family=Playfair+Display:wght@600;800&family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --primary: #00f0ff;
       --primary-rgb: 0, 240, 255;
-      --font-heading: 'Montserrat', sans-serif;
-      --font-body: 'Montserrat', sans-serif;
-      --font-weight-body: 300;
-      --font-weight-heading: 800;
-      --bg: #080a14;
-      --surface: rgba(15, 20, 38, 0.85);
-      --border: rgba(0, 240, 255, 0.22);
+      --font-heading: 'Orbitron', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --bg: #070913;
+      --surface: rgba(14, 18, 36, 0.85);
+      --border: rgba(0, 240, 255, 0.25);
       --text: #e2e8f0;
       --text-muted: #94a3b8;
-      --glow: 0 0 25px rgba(var(--primary-rgb), 0.35);
+      --glow: 0 0 25px rgba(var(--primary-rgb), 0.4);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
-      font-weight: var(--font-weight-body);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 3rem 1.5rem;
-      -webkit-font-smoothing: antialiased;
-      position: relative;
     }
 
-    h1, h2, h3, .heading-font {
-      font-family: var(--font-heading);
-      font-weight: var(--font-weight-heading);
-      letter-spacing: -0.01em;
-    }
+    h1, h2, h3, .heading-font { font-family: var(--font-heading); }
 
-    .bg-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: -1;
-      background: 
-        radial-gradient(circle at 15% 20%, rgba(var(--primary-rgb), 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 85% 80%, rgba(112, 0, 255, 0.15) 0%, transparent 45%),
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 45px 45px, 45px 45px;
+    .container {
+      width: 100%;
+      max-width: 750px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      margin-top: 1.5rem;
     }
 
     .top-bar {
@@ -74,25 +57,14 @@
       align-items: center;
     }
 
-    .container {
-      width: 100%;
-      max-width: 750px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 2.5rem;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      margin-top: 1.5rem;
-    }
-
     .btn {
       font-family: var(--font-heading);
       font-size: 0.85rem;
-      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       padding: 0.65rem 1.4rem;
       border: 1px solid var(--primary);
-      border-radius: 6px;
+      border-radius: 4px;
       background: transparent;
       color: var(--primary);
       cursor: pointer;
@@ -101,74 +73,98 @@
       transition: all 0.3s;
     }
 
-    .btn:hover {
-      background: var(--primary);
-      color: #000;
-      box-shadow: var(--glow);
-    }
+    .btn:hover { background: var(--primary); color: #000; box-shadow: var(--glow); }
+    .btn-solid { background: var(--primary); color: #000; font-weight: 700; }
+    .btn-danger { border-color: #ff3366; color: #ff3366; font-size: 0.75rem; padding: 0.4rem 0.8rem; }
+    .btn-danger:hover { background: #ff3366; color: #fff; box-shadow: 0 0 15px rgba(255, 51, 102, 0.5); }
 
-    .btn-solid {
-      background: var(--primary);
-      color: #000;
-      font-weight: 800;
-    }
-
-    .form-group {
-      margin-bottom: 1.4rem;
-    }
-
+    .form-group { margin-bottom: 1.4rem; }
     .form-group label {
       display: block;
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.8rem;
       font-family: var(--font-heading);
       text-transform: uppercase;
       margin-bottom: 0.5rem;
       color: var(--text-muted);
     }
 
-    .form-input, .form-select {
+    .form-input, .form-select, .form-textarea {
       width: 100%;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 8px;
+      border-radius: 6px;
       padding: 0.75rem 1rem;
       color: #fff;
       font-family: inherit;
       font-size: 0.95rem;
     }
 
-    .form-select {
-      background-color: #0d1222;
+    .form-select { background-color: #0d1222; cursor: pointer; }
+    .form-textarea { min-height: 90px; resize: vertical; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary); }
+
+    .error-msg { color: #ff3366; font-size: 0.85rem; margin-top: 0.6rem; display: none; }
+
+    .tabs {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.5rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
       cursor: pointer;
+      padding: 0.5rem 0;
     }
 
-    .form-input:focus, .form-select:focus {
-      outline: none;
-      border-color: var(--primary);
+    .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
+
+    .course-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.9rem 1.2rem;
+      border-radius: 6px;
+      margin-bottom: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .error-msg {
-      color: #ff3366;
-      font-size: 0.85rem;
-      margin-top: 0.6rem;
-      display: none;
+    .course-item-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      object-fit: cover;
+      margin-right: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .export-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px dashed var(--primary);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-canvas"></div>
-
   <div class="top-bar">
-    <a href="index.html" class="btn">← Back to Site</a>
-    <span class="heading-font" style="color: var(--primary); font-size: 0.85rem; font-weight: 800;">SITE SETTINGS</span>
+    <a href="index.html" class="btn">← Return to Site</a>
+    <span class="heading-font" style="color: var(--primary); font-size: 0.9rem;">ADMIN CONSOLE</span>
   </div>
 
   <div class="container" id="loginContainer" style="max-width: 450px;">
-    <h2 class="heading-font" style="margin-bottom: 1.5rem; color: #fff;">Admin Authorization</h2>
+    <h2 class="heading-font" style="margin-bottom: 1.5rem; color: #fff;">Authorization Required</h2>
     <div class="form-group">
-      <label>Username</label>
+      <label>Admin Username</label>
       <input type="text" id="adminUser" class="form-input" placeholder="admin" autocomplete="off" />
     </div>
     <div class="form-group">
@@ -179,133 +175,228 @@
     <button class="btn btn-solid" style="width: 100%; margin-top: 1rem;" onclick="attemptLogin()">Unlock Portal</button>
   </div>
 
-  <div class="container" id="designDashboard" style="display: none;">
-    <h2 class="heading-font" style="margin-bottom: 1.5rem; color: var(--primary); font-size: 1.3rem;">Visual & Brand Settings</h2>
-
-    <div class="form-group">
-      <label>Website Name / Academy Brand</label>
-      <input type="text" id="setBrandName" class="form-input" />
-    </div>
-    
-    <div class="form-group">
-      <label>Main Headline</label>
-      <input type="text" id="setHeroHeading" class="form-input" />
+  <div class="container" id="adminDashboard" style="display: none;">
+    <div class="tabs">
+      <button class="tab-btn active" id="tabSiteBtn" onclick="switchSection('site')">Global Design & Brand</button>
+      <button class="tab-btn" id="tabCoursesBtn" onclick="switchSection('courses')">Course Management</button>
     </div>
 
-    <div class="form-group">
-      <label>Heading Font Family</label>
-      <select id="setHeadingFont" class="form-select">
-        <option value="'Montserrat', sans-serif">Montserrat Bold (Default)</option>
-        <option value="'Ubuntu', sans-serif">Ubuntu Bold</option>
-        <option value="'Open Sans', sans-serif">Open Sans Bold</option>
-      </select>
+    <div id="siteSection">
+      <div class="form-group">
+        <label>Website Name / Academy Brand</label>
+        <input type="text" id="setBrandName" class="form-input" oninput="syncState()" />
+      </div>
+      <div class="form-group">
+        <label>Website Main Heading</label>
+        <input type="text" id="setHeroHeading" class="form-input" oninput="syncState()" />
+      </div>
+      <div class="form-group">
+        <label>Website Heading Font Style</label>
+        <select id="setHeadingFont" class="form-select" onchange="syncState()">
+          <option value="'Orbitron', sans-serif">Cyberpunk / Futuristic (Orbitron)</option>
+          <option value="'Space Grotesk', sans-serif">Modern Tech (Space Grotesk)</option>
+          <option value="'Syne', sans-serif">Ultra-Wide Bold (Syne)</option>
+          <option value="'Inter', sans-serif">Minimalist Sans (Inter)</option>
+          <option value="'Fira Code', monospace">Developer Monospace (Fira Code)</option>
+          <option value="'Playfair Display', serif">Classic Editorial Serif (Playfair)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Website Body Text Font Style</label>
+        <select id="setBodyFont" class="form-select" onchange="syncState()">
+          <option value="'Space Grotesk', sans-serif">Tech Modern (Space Grotesk)</option>
+          <option value="'Inter', sans-serif">Clean Neutral (Inter)</option>
+          <option value="'Fira Code', monospace">Monospace Code (Fira Code)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Global Accent & Glow Color</label>
+        <input type="color" id="setColor" class="form-input" style="height: 48px; padding: 4px; cursor: pointer;" oninput="syncState()" />
+      </div>
     </div>
 
-    <div class="form-group">
-      <label>Body Text Font Family</label>
-      <select id="setBodyFont" class="form-select">
-        <option value="'Montserrat', sans-serif">Montserrat Light (Default)</option>
-        <option value="'Ubuntu', sans-serif">Ubuntu Light/Regular</option>
-        <option value="'Open Sans', sans-serif">Open Sans Light/Regular</option>
-      </select>
+    <div id="coursesSection" style="display: none;">
+      <h3 class="heading-font" style="font-size: 1.1rem; margin-bottom: 1.2rem; color: var(--primary);">Add New Course</h3>
+      
+      <div class="form-group">
+        <label>Course Name (Top)</label>
+        <input type="text" id="courseName" class="form-input" placeholder="e.g. Modern Core Engineering" />
+      </div>
+
+      <div class="form-group">
+        <label>Course Thumbnail Image URL</label>
+        <input type="url" id="courseImg" class="form-input" placeholder="https://example.com/image.jpg" />
+      </div>
+
+      <div class="form-group">
+        <label>Course Description (Middle)</label>
+        <textarea id="courseDesc" class="form-textarea" placeholder="Outline syllabus, prerequisites, and scope..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Course Price (Bottom)</label>
+        <input type="text" id="coursePrice" class="form-input" placeholder="e.g. $199 or Free" />
+      </div>
+
+      <button class="btn btn-solid" style="width: 100%; margin-bottom: 2rem;" onclick="addCourse()">+ Add Course</button>
+
+      <h3 class="heading-font" style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-muted);">Current Active Courses</h3>
+      <div id="coursesList"></div>
     </div>
 
-    <div class="form-group">
-      <label>Glow / Accent Color</label>
-      <input type="color" id="setColor" class="form-input" style="height: 48px; padding: 4px; cursor: pointer;" />
+    <div class="export-box">
+      <h3 class="heading-font" style="font-size: 0.95rem; color: var(--primary); margin-bottom: 0.6rem;">Save Everywhere (data.json)</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+        Click <strong>Download data.json</strong> or <strong>Copy JSON Code</strong>. Replace your local/GitHub <code>data.json</code> file to persist changes across all devices.
+      </p>
+      <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+        <button class="btn btn-solid" onclick="downloadJSON()">⬇ Download data.json</button>
+        <button class="btn" onclick="copyJSON()">📋 Copy JSON Code</button>
+      </div>
     </div>
-
-    <button class="btn btn-solid" style="width: 100%; margin-top: 1rem;" onclick="saveDesignSettings()">Apply Style Updates</button>
   </div>
 
   <script>
-    function hexToRgb(hex) {
-      hex = hex.replace('#', '');
-      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
-      const num = parseInt(hex, 16);
-      return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
-    }
-
-    function syncTheme() {
-      let headingFont = "'Montserrat', sans-serif";
-      let bodyFont = "'Montserrat', sans-serif";
-      let headingWeight = "800";
-      let bodyWeight = "300";
-
-      const savedConfig = localStorage.getItem('siteConfig');
-      if (savedConfig) {
-        try {
-          const config = JSON.parse(savedConfig);
-          if (config.color) {
-            document.documentElement.style.setProperty('--primary', config.color);
-            document.documentElement.style.setProperty('--primary-rgb', hexToRgb(config.color));
-          }
-          if (config.headingFont) {
-            headingFont = config.headingFont;
-            headingWeight = headingFont.includes('Montserrat') ? "800" : "700";
-          }
-          if (config.bodyFont) {
-            bodyFont = config.bodyFont;
-            bodyWeight = bodyFont.includes('Montserrat') ? "300" : "400";
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      }
-
-      document.documentElement.style.setProperty('--font-heading', headingFont);
-      document.documentElement.style.setProperty('--font-body', bodyFont);
-      document.documentElement.style.setProperty('--font-weight-heading', headingWeight);
-      document.documentElement.style.setProperty('--font-weight-body', bodyWeight);
-    }
+    let siteState = {
+      config: {
+        brand: "AETHER ACADEMY",
+        heading: "Master the Code of the Future",
+        headingFont: "'Orbitron', sans-serif",
+        bodyFont: "'Space Grotesk', sans-serif",
+        color: "#00f0ff"
+      },
+      courses: []
+    };
 
     function attemptLogin() {
       const user = document.getElementById('adminUser').value.trim();
       const pass = document.getElementById('adminPass').value.trim();
-      const errorMsg = document.getElementById('loginError');
-
       if (user === 'admin' && pass === '12345') {
         document.getElementById('loginContainer').style.display = 'none';
-        document.getElementById('designDashboard').style.display = 'block';
-        loadSettings();
+        document.getElementById('adminDashboard').style.display = 'block';
+        loadInitialData();
       } else {
-        errorMsg.style.display = 'block';
+        document.getElementById('loginError').style.display = 'block';
       }
     }
 
-    function loadSettings() {
-      const savedConfig = localStorage.getItem('siteConfig');
-      if (savedConfig) {
-        const config = JSON.parse(savedConfig);
-        document.getElementById('setBrandName').value = config.brand || 'AETHER ACADEMY';
-        document.getElementById('setHeroHeading').value = config.heading || 'Master the Code of the Future';
-        document.getElementById('setHeadingFont').value = config.headingFont || "'Montserrat', sans-serif";
-        document.getElementById('setBodyFont').value = config.bodyFont || "'Montserrat', sans-serif";
-        document.getElementById('setColor').value = config.color || '#00f0ff';
-      } else {
-        document.getElementById('setBrandName').value = 'AETHER ACADEMY';
-        document.getElementById('setHeroHeading').value = 'Master the Code of the Future';
-        document.getElementById('setHeadingFont').value = "'Montserrat', sans-serif";
-        document.getElementById('setBodyFont').value = "'Montserrat', sans-serif";
-        document.getElementById('setColor').value = '#00f0ff';
+    function switchSection(sec) {
+      document.getElementById('siteSection').style.display = (sec === 'site') ? 'block' : 'none';
+      document.getElementById('coursesSection').style.display = (sec === 'courses') ? 'block' : 'none';
+      document.getElementById('tabSiteBtn').classList.toggle('active', sec === 'site');
+      document.getElementById('tabCoursesBtn').classList.toggle('active', sec === 'courses');
+    }
+
+    async function loadInitialData() {
+      try {
+        const res = await fetch('data.json?t=' + Date.now());
+        if (res.ok) siteState = await res.json();
+      } catch (e) {
+        console.warn('Could not read remote data.json', e);
       }
+
+      const cfg = siteState.config || {};
+      document.getElementById('setBrandName').value = cfg.brand || 'AETHER ACADEMY';
+      document.getElementById('setHeroHeading').value = cfg.heading || 'Master the Code of the Future';
+      document.getElementById('setHeadingFont').value = cfg.headingFont || "'Orbitron', sans-serif";
+      document.getElementById('setBodyFont').value = cfg.bodyFont || "'Space Grotesk', sans-serif";
+      document.getElementById('setColor').value = cfg.color || '#00f0ff';
+
+      renderAdminCourseList();
     }
 
-    function saveDesignSettings() {
-      const brand = document.getElementById('setBrandName').value.trim();
-      const heading = document.getElementById('setHeroHeading').value.trim();
-      const headingFont = document.getElementById('setHeadingFont').value;
-      const bodyFont = document.getElementById('setBodyFont').value;
-      const color = document.getElementById('setColor').value;
-
-      const config = { brand, heading, headingFont, bodyFont, color };
-      localStorage.setItem('siteConfig', JSON.stringify(config));
-
-      alert('Design settings saved! Redirecting to home...');
-      window.location.href = 'index.html';
+    function syncState() {
+      siteState.config = {
+        brand: document.getElementById('setBrandName').value.trim(),
+        heading: document.getElementById('setHeroHeading').value.trim(),
+        headingFont: document.getElementById('setHeadingFont').value,
+        bodyFont: document.getElementById('setBodyFont').value,
+        color: document.getElementById('setColor').value
+      };
+      localStorage.setItem('siteExportData', JSON.stringify(siteState));
     }
 
-    window.addEventListener('DOMContentLoaded', syncTheme);
+    function renderAdminCourseList() {
+      const list = document.getElementById('coursesList');
+      list.innerHTML = '';
+
+      if (!siteState.courses || siteState.courses.length === 0) {
+        list.innerHTML = '<p style="color: var(--text-muted); font-size: 0.9rem;">No courses uploaded yet.</p>';
+        return;
+      }
+
+      siteState.courses.forEach((c, idx) => {
+        const item = document.createElement('div');
+        item.className = 'course-item';
+        
+        const thumb = c.image 
+          ? `<img src="${c.image}" class="course-item-thumb" onerror="this.style.display='none'" />`
+          : `<div class="course-item-thumb" style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);color:var(--text-muted);font-size:0.7rem;">N/A</div>`;
+
+        item.innerHTML = `
+          <div style="display: flex; align-items: center;">
+            ${thumb}
+            <div>
+              <strong style="color: #fff; display: block; font-size: 0.95rem;">${c.title}</strong>
+              <span style="color: var(--primary); font-size: 0.85rem;">${c.price}</span>
+            </div>
+          </div>
+          <button class="btn btn-danger" onclick="deleteCourse(${idx})">Delete</button>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function addCourse() {
+      const title = document.getElementById('courseName').value.trim();
+      const image = document.getElementById('courseImg').value.trim();
+      const desc = document.getElementById('courseDesc').value.trim();
+      const price = document.getElementById('coursePrice').value.trim();
+
+      if (!title || !desc || !price) {
+        alert('Please fill in Course Title, Description, and Price.');
+        return;
+      }
+
+      if (!siteState.courses) siteState.courses = [];
+      siteState.courses.push({
+        id: Date.now(),
+        title,
+        image,
+        desc,
+        price
+      });
+
+      document.getElementById('courseName').value = '';
+      document.getElementById('courseImg').value = '';
+      document.getElementById('courseDesc').value = '';
+      document.getElementById('coursePrice').value = '';
+
+      syncState();
+      renderAdminCourseList();
+    }
+
+    function deleteCourse(idx) {
+      siteState.courses.splice(idx, 1);
+      syncState();
+      renderAdminCourseList();
+    }
+
+    function downloadJSON() {
+      syncState();
+      const blob = new Blob([JSON.stringify(siteState, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'data.json';
+      a.click();
+      alert('Downloaded data.json! Replace data.json in your project folder.');
+    }
+
+    function copyJSON() {
+      syncState();
+      navigator.clipboard.writeText(JSON.stringify(siteState, null, 2));
+      alert('JSON copied to clipboard! Paste it directly into your data.json file.');
+    }
   </script>
 </body>
 </html>

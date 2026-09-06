@@ -6,53 +6,38 @@
   <title id="siteTitleTag">Futuristic Academy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Open+Sans:wght@300;400;600;700&family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;800&family=Orbitron:wght@500;700;900&family=Playfair+Display:wght@600;800&family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --primary: #00f0ff;
       --primary-rgb: 0, 240, 255;
-      --font-heading: 'Montserrat', sans-serif;
-      --font-body: 'Montserrat', sans-serif;
-      --font-weight-body: 300;
-      --font-weight-heading: 800;
-      --bg: #080a14;
-      --surface: rgba(15, 20, 38, 0.72);
-      --border: rgba(0, 240, 255, 0.22);
+      --font-heading: 'Orbitron', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --bg: #070913;
+      --surface: rgba(14, 18, 36, 0.75);
+      --border: rgba(0, 240, 255, 0.25);
       --text: #e2e8f0;
       --text-muted: #94a3b8;
-      --glow: 0 0 25px rgba(var(--primary-rgb), 0.35);
+      --glow: 0 0 25px rgba(var(--primary-rgb), 0.4);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
-      font-weight: var(--font-weight-body);
       overflow-x: hidden;
       min-height: 100vh;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
     }
 
-    h1, h2, h3, .heading-font {
-      font-family: var(--font-heading);
-      font-weight: var(--font-weight-heading);
-      letter-spacing: -0.01em;
-    }
+    h1, h2, h3, .heading-font { font-family: var(--font-heading); }
 
     .bg-canvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
       pointer-events: none;
       z-index: -1;
       background: 
@@ -76,7 +61,9 @@
     }
 
     .brand {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 2px;
       color: #fff;
       display: flex;
       align-items: center;
@@ -84,23 +71,16 @@
       text-decoration: none;
     }
 
-    .brand span {
-      color: var(--primary);
-      text-shadow: var(--glow);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 0.75rem;
-    }
+    .brand span { color: var(--primary); text-shadow: var(--glow); }
 
     .btn {
       font-family: var(--font-heading);
       font-size: 0.85rem;
-      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       padding: 0.65rem 1.4rem;
       border: 1px solid var(--primary);
-      border-radius: 6px;
+      border-radius: 4px;
       background: transparent;
       color: var(--primary);
       cursor: pointer;
@@ -116,14 +96,10 @@
       transform: translateY(-2px);
     }
 
-    .btn-solid {
-      background: var(--primary);
-      color: #000;
-      font-weight: 800;
-    }
+    .btn-solid { background: var(--primary); color: #000; font-weight: 700; }
 
     .hero {
-      padding: 6.5rem 8% 4.5rem;
+      padding: 6rem 8% 4rem;
       text-align: center;
       max-width: 950px;
       margin: 0 auto;
@@ -131,30 +107,29 @@
 
     .badge {
       display: inline-block;
-      padding: 0.4rem 1.2rem;
-      font-size: 0.78rem;
-      font-weight: 700;
+      padding: 0.35rem 1.2rem;
+      font-size: 0.8rem;
       font-family: var(--font-heading);
       color: var(--primary);
       border: 1px solid var(--primary);
       background: rgba(var(--primary-rgb), 0.08);
       border-radius: 50px;
-      margin-bottom: 1.8rem;
-      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
     }
 
     .hero h1 {
       font-size: clamp(2.3rem, 5vw, 3.8rem);
-      line-height: 1.18;
+      line-height: 1.2;
       margin-bottom: 1.5rem;
+      font-weight: 800;
       color: #ffffff;
-      text-shadow: 0 0 35px rgba(var(--primary-rgb), 0.25);
+      text-shadow: 0 0 35px rgba(var(--primary-rgb), 0.3);
     }
 
     .hero p {
       font-size: 1.15rem;
       color: var(--text-muted);
-      max-width: 680px;
+      max-width: 700px;
       margin: 0 auto 2.5rem;
     }
 
@@ -165,9 +140,10 @@
     }
 
     .section-title {
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: 3rem;
       text-align: center;
+      letter-spacing: 2px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -190,45 +166,30 @@
     .course-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
       backdrop-filter: blur(16px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 380px;
       transition: all 0.3s ease;
     }
 
     .course-card:hover {
       transform: translateY(-6px);
       border-color: var(--primary);
-      box-shadow: 0 12px 35px rgba(var(--primary-rgb), 0.16);
+      box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.18);
     }
 
-    .course-thumbnail {
+    .course-thumb {
       width: 100%;
-      height: 180px;
+      height: 190px;
       object-fit: cover;
-      background: #0d1222;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: block;
+      border-bottom: 1px solid var(--border);
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
-    .course-thumbnail-placeholder {
-      width: 100%;
-      height: 180px;
-      background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1) 0%, rgba(112, 0, 255, 0.1) 100%);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-size: 2.2rem;
-      font-family: var(--font-heading);
-    }
-
-    .card-content {
+    .course-content {
       padding: 1.8rem;
       display: flex;
       flex-direction: column;
@@ -236,21 +197,9 @@
       justify-content: space-between;
     }
 
-    .card-top h3 {
-      font-size: 1.35rem;
-      color: #fff;
-      margin-bottom: 0.8rem;
-    }
-
-    .card-body {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.8rem;
-      flex-grow: 1;
-      white-space: pre-line;
-      line-height: 1.6;
-    }
-
+    .card-top h3 { font-size: 1.35rem; color: #fff; margin-bottom: 1rem; }
+    .card-body { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem; flex-grow: 1; white-space: pre-line; }
+    
     .card-bottom {
       display: flex;
       justify-content: space-between;
@@ -261,10 +210,10 @@
 
     .course-price {
       font-family: var(--font-heading);
-      font-size: 1.3rem;
-      font-weight: 800;
+      font-size: 1.25rem;
+      font-weight: 700;
       color: var(--primary);
-      text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.25);
+      text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.3);
     }
 
     footer {
@@ -272,7 +221,7 @@
       text-align: center;
       padding: 2.5rem 8%;
       color: var(--text-muted);
-      font-size: 0.88rem;
+      font-size: 0.85rem;
     }
   </style>
 </head>
@@ -284,14 +233,13 @@
     <a href="index.html" class="brand heading-font">
       <span id="siteLogo">❖</span> <span id="brandName">AETHER ACADEMY</span>
     </a>
-    <div class="nav-links">
-      <a href="courses-settings.html" class="btn">📚 Manage Courses</a>
-      <a href="settings.html" class="btn">⚙ Site Style</a>
+    <div>
+      <a href="settings.html" class="btn">⚙ Settings</a>
     </div>
   </header>
 
   <section class="hero">
-    <div class="badge">SYSTEM READY // ADMISSIONS OPEN</div>
+    <div class="badge">SYSTEM READY // ACADEMY ACTIVE</div>
     <h1 id="heroHeadline">Master the Code of the Future</h1>
     <p id="heroSubline">Explore structured modules, hands-on programming paradigms, and high-impact curriculum designed for the next generation.</p>
     <a href="#courses" class="btn btn-solid">Explore Courses</a>
@@ -309,23 +257,6 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    const defaultCourses = [
-      {
-        id: 1,
-        title: "Modern Core Engineering",
-        desc: "Foundational programming structures, control flows, and clean procedural architecture.",
-        price: "$199",
-        thumbnail: ""
-      },
-      {
-        id: 2,
-        title: "Interactive Web Architectures",
-        desc: "Mastering DOM operations, asynchronous systems, responsive design, and dynamic rendering.",
-        price: "$249",
-        thumbnail: ""
-      }
-    ];
-
     function hexToRgb(hex) {
       hex = hex.replace('#', '');
       if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
@@ -333,76 +264,59 @@
       return `${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}`;
     }
 
-    function loadSiteSettings() {
-      let headingFont = "'Montserrat', sans-serif";
-      let bodyFont = "'Montserrat', sans-serif";
-      let headingWeight = "800";
-      let bodyWeight = "300";
+    async function loadSiteData() {
+      let data = null;
 
-      const savedConfig = localStorage.getItem('siteConfig');
-      if (savedConfig) {
-        try {
-          const config = JSON.parse(savedConfig);
-          if (config.brand) {
-            document.getElementById('brandName').textContent = config.brand;
-            document.getElementById('footerBrand').textContent = config.brand;
-            document.getElementById('siteTitleTag').textContent = `${config.brand} // Academy`;
-          }
-          if (config.heading) {
-            document.getElementById('heroHeadline').textContent = config.heading;
-          }
-          if (config.color) {
-            document.documentElement.style.setProperty('--primary', config.color);
-            document.documentElement.style.setProperty('--primary-rgb', hexToRgb(config.color));
-          }
-          if (config.headingFont) {
-            headingFont = config.headingFont;
-            headingWeight = headingFont.includes('Montserrat') ? "800" : "700";
-          }
-          if (config.bodyFont) {
-            bodyFont = config.bodyFont;
-            bodyWeight = bodyFont.includes('Montserrat') ? "300" : "400";
-          }
-        } catch (e) {
-          console.error("Config load error", e);
-        }
+      try {
+        const res = await fetch('data.json?t=' + Date.now());
+        if (res.ok) data = await res.json();
+      } catch (e) {
+        console.warn('Network request for data.json failed; checking browser fallback cache.', e);
       }
 
-      document.documentElement.style.setProperty('--font-heading', headingFont);
-      document.documentElement.style.setProperty('--font-body', bodyFont);
-      document.documentElement.style.setProperty('--font-weight-heading', headingWeight);
-      document.documentElement.style.setProperty('--font-weight-body', bodyWeight);
+      if (!data) {
+        const cached = localStorage.getItem('siteExportData');
+        if (cached) data = JSON.parse(cached);
+      }
 
-      const savedWhatsApp = localStorage.getItem('whatsappNumber') || '1234567890';
-      const cleanPhone = savedWhatsApp.replace(/[^0-9]/g, '');
+      if (!data) return;
 
-      const savedCourses = localStorage.getItem('siteCourses');
-      const courses = savedCourses ? JSON.parse(savedCourses) : defaultCourses;
+      const cfg = data.config;
+      if (cfg) {
+        if (cfg.brand) {
+          document.getElementById('brandName').textContent = cfg.brand;
+          document.getElementById('footerBrand').textContent = cfg.brand;
+          document.getElementById('siteTitleTag').textContent = `${cfg.brand} // Academy`;
+        }
+        if (cfg.heading) document.getElementById('heroHeadline').textContent = cfg.heading;
+        if (cfg.color) {
+          document.documentElement.style.setProperty('--primary', cfg.color);
+          document.documentElement.style.setProperty('--primary-rgb', hexToRgb(cfg.color));
+        }
+        if (cfg.headingFont) document.documentElement.style.setProperty('--font-heading', cfg.headingFont);
+        if (cfg.bodyFont) document.documentElement.style.setProperty('--font-body', cfg.bodyFont);
+      }
+
+      const courses = data.courses || [];
       const grid = document.getElementById('courseGrid');
       grid.innerHTML = '';
 
-      courses.forEach(course => {
-        const textMsg = encodeURIComponent(`Hello! I want to enroll in the "${course.title}" course (Price: ${course.price}). Please share further information.`);
-        const whatsappUrl = `https://wa.me/${cleanPhone}?text=${textMsg}`;
-
-        const thumbElement = course.thumbnail && course.thumbnail.trim() !== ''
-          ? `<img src="${course.thumbnail}" class="course-thumbnail" alt="${course.title}" />`
-          : `<div class="course-thumbnail-placeholder">❖</div>`;
-
+      courses.forEach(c => {
         const card = document.createElement('div');
         card.className = 'course-card';
+        
+        const imgHtml = c.image 
+          ? `<img src="${c.image}" alt="${c.title}" class="course-thumb" onerror="this.style.display='none'" />` 
+          : '';
+
         card.innerHTML = `
-          ${thumbElement}
-          <div class="card-content">
-            <div class="card-top">
-              <h3>${course.title}</h3>
-            </div>
-            <div class="card-body">
-              <p>${course.desc}</p>
-            </div>
+          ${imgHtml}
+          <div class="course-content">
+            <div class="card-top"><h3>${c.title}</h3></div>
+            <div class="card-body"><p>${c.desc}</p></div>
             <div class="card-bottom">
-              <span class="course-price">${course.price}</span>
-              <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-solid">Enroll Now</a>
+              <span class="course-price">${c.price}</span>
+              <button class="btn">Enroll</button>
             </div>
           </div>
         `;
@@ -410,7 +324,7 @@
       });
     }
 
-    window.addEventListener('DOMContentLoaded', loadSiteSettings);
+    window.addEventListener('DOMContentLoaded', loadSiteData);
   </script>
 </body>
 </html>
